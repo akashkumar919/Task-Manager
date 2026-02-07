@@ -5,6 +5,7 @@ import { useState } from "react";
 import { FaTrash, FaEdit } from "react-icons/fa";
 import toast from "react-hot-toast";
 import EditModal from "./EditModal";
+import BASE_URL from "../api/api";
 
 export default function TaskCard({ task, refresh }) {
   const [celebrate, setCelebrate] = useState(false);
@@ -14,7 +15,7 @@ export default function TaskCard({ task, refresh }) {
 
   const toggleStatus = async () => {
     const newStatus = task.status === "pending" ? "completed" : "pending";
-    await axios.put(`http://localhost:5000/api/tasks/${task._id}`, {
+    await axios.put(`${BASE_URL}/api/tasks/${task._id}`, {
       ...task,
       status: newStatus,
     });
@@ -26,7 +27,7 @@ export default function TaskCard({ task, refresh }) {
   };
 
   const saveEdit = async () => {
-    await axios.put(`http://localhost:5000/api/tasks/${editTask._id}`, editTask);
+    await axios.put(`${BASE_URL}/api/tasks/${editTask._id}`, editTask);
     setShowModal(false);
     refresh();
     toast.success("Task updated!");
@@ -53,7 +54,7 @@ export default function TaskCard({ task, refresh }) {
     );
 
     const timer = setTimeout(async () => {
-      await axios.delete(`http://localhost:5000/api/tasks/${task._id}`);
+      await axios.delete(`${BASE_URL}/api/tasks/${task._id}`);
       refresh();
     }, 5000);
 

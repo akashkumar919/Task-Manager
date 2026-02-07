@@ -60,6 +60,7 @@
 import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import BASE_URL from "../api/api";
 
 export default function TaskForm({ refresh, isModal = false }) {
   const [title, setTitle] = useState("");
@@ -69,7 +70,7 @@ export default function TaskForm({ refresh, isModal = false }) {
     e.preventDefault();
     if (!title.trim()) return toast.error("Title is required!");
 
-    await axios.post("http://localhost:5000/api/tasks", {
+    await axios.post(`${BASE_URL}/api/tasks`, {
       title,
       description,
       status: "pending",

@@ -1,12 +1,13 @@
 import axios from "axios";
 import { useEffect, useState, forwardRef, useImperativeHandle } from "react";
 import TaskCard from "./TaskCard";
+import BASE_URL from "../api/api";
 
 const TaskList = forwardRef(({ activeTab }, ref) => {
   const [tasks, setTasks] = useState([]);
 
   const fetchTasks = async () => {
-    const res = await axios.get("http://localhost:5000/api/tasks");
+    const res = await axios.get(`${BASE_URL}/api/tasks`);
     setTasks(res.data);
   };
 
